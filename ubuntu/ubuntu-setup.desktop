@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/bin/bash -lc 'exec "$HOME/.config/ubuntu/ubuntu_setup.sh"'
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Ubuntu Setup Script
+Name=Ubuntu Setup Script
+Comment[en_US]=Launches my custom setup script for window placement and app launching.
+Comment=ウィンドウ配置とアプリ起動のカスタムセットアップスクリプト

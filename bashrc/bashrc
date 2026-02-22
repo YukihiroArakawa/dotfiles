@@ -1,0 +1,36 @@
+source ~/.local/share/omakub/defaults/bash/rc
+
+# nix
+alias home-manager-switch-to-york="nix run home-manager/master -- switch --flake .#york -b backup"
+
+# git
+alias glo="git log --oneline"
+alias gs="git status"
+alias updateGit="git add . && git commit -m 'update' && git push origin main"
+
+# Editor used by CLI
+export EDITOR="nvim"
+export SUDO_EDITOR="$EDITOR"
+. "$HOME/.cargo/env"
+
+alias vim="nvim"
+
+export PATH="$HOME/.tiup/bin:$PATH"
+
+# copyq
+## copyqのためにxcbモードで起動する. waylanddだとうまく動作しないアプリがあるとのこと.
+export QT_QPA_PLATFORM=xcb
+alias copyq_killall="killall copyq"
+alias copyq_xcb="env QT_QPA_PLATFORM=xcb copyq &"
+
+# xclip(like pbcopy)
+alias pbcopy='xclip -selection clipboard'
+
+# xclip
+# ex) cat file | copyclipboad
+alias copyclipboad="xclip -selection clipboard"
+
+# machine-local/private settings (not tracked in this repo)
+if [ -f "$HOME/.bashrc.local" ]; then
+  source "$HOME/.bashrc.local"
+fi
