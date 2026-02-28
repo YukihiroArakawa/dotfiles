@@ -22,3 +22,13 @@ ubuntu 24.04
 - clone this repo and exec `nix run home-manager/master -- switch --flake .#york -b backup`
 
 - make capslock ctrl
+
+## update flake
+
+```
+# update all flakes
+$ nix flake update 
+
+# update a flake
+$ nix flake claude-codenix
+```
