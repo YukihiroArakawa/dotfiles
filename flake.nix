@@ -3,7 +3,7 @@
   # Flake metadata
   # ------------------------------
   # この flake の説明文
-  description = "dotfiles (home-manager + latest codex)";
+  description = "dotfiles (home-manager + latest codex/claude-code)";
 
   # ------------------------------
   # Input dependencies
@@ -20,13 +20,15 @@
 
     # codex CLI パッケージを提供する flake
     codex-nix.url = "github:sadjow/codex-nix";
+    # Claude Code CLI パッケージを提供する flake
+    claude-code-nix.url = "github:sadjow/claude-code-nix";
   };
 
   # ------------------------------
   # Flake outputs
   # ------------------------------
   # inputs を受け取り、実際に使う成果物（ここでは homeConfigurations）を定義
-  outputs = { nixpkgs, home-manager, codex-nix, ... }:
+  outputs = { nixpkgs, home-manager, codex-nix, claude-code-nix, ... }:
     let
       # 対象アーキテクチャ
       system = "x86_64-linux";
@@ -48,6 +50,7 @@
           ({ ... }: {
             home.packages = [
               codex-nix.packages.${system}.default
+              claude-code-nix.packages.${system}.default
             ];
           })
         ];
