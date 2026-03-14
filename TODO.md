@@ -16,3 +16,5 @@
   - [ ] color themeを適応する (ohmyfishとか？)
 
 - [ ] Claudeのdenyルール、skills等を整備
+
+- [ ] weztermに入門したい。tmux使わずにtmuxぽいことできるみたいなので。せっかくRust製のターミナル使っていてもtmuxがボトルネックになって描画が早くなっていないようなところもありそうな。
