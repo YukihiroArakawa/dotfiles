@@ -4,6 +4,8 @@ abbr -a hms "nix run home-manager/master -- switch --flake .#york -b backup"
 # git
 abbr -a glo "git log --oneline"
 abbr -a gs "git status"
+abbr -a gpoh "git push origin HEAD"
+abbr -a gpfoh "git push -f origin HEAD"
 
 # editor
 set -gx EDITOR nvim
