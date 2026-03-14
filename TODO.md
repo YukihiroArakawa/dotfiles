@@ -9,4 +9,10 @@
 
 - [ ] caps lock を ctrlに変えるのもnixから実施
 
+- [ ] fish shellの環境整備
+  - [x] fish shellをインストール
+  - [x] tmux環境のデフォルトシェルをfishにする
+  - [x] abbrを設定
+  - [ ] color themeを適応する (ohmyfishとか？)
 
+- [ ] Claudeのdenyルール、skills等を整備
