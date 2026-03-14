@@ -18,6 +18,14 @@
   programs.home-manager.enable = true;
 
   # ------------------------------
+  # Fish shell
+  # ------------------------------
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = builtins.readFile ./../fish/config.fish;
+  };
+
+  # ------------------------------
   # Packages
   # ------------------------------
   # このユーザー環境に追加するパッケージ一覧
@@ -25,7 +33,7 @@
   home.packages = [
     pkgs.tmux
     # pdfのページ追加・削除・入れ替えツール
-    pkgs.pdfarranger 
+    pkgs.pdfarranger
   ];
 
   # ------------------------------
