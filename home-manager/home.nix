@@ -34,6 +34,8 @@
     pkgs.tmux
     # pdfのページ追加・削除・入れ替えツール
     pkgs.pdfarranger
+    # GitHub CLI（PR作成・Issue管理などGitHub操作をターミナルから実行）
+    pkgs.gh
   ];
 
   # ------------------------------
