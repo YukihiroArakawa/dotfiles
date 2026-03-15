@@ -1,6 +1,30 @@
 {
   "language": "japanese",
   "effortLevel": "medium",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/notify.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/notify.sh /usr/share/sounds/freedesktop/stereo/bell.oga",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "deny": [
       "Read(.env)",

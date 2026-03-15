@@ -60,6 +60,11 @@
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
     ".claude/CLAUDE.md".source = ./../claude/CLAUDE.md;
+    # Claude Code フック: イベントに応じた通知音を再生するスクリプト
+    ".claude/hooks/notify.sh" = {
+      source = ./../claude/hooks/notify.sh;
+      executable = true;
+    };
   };
 
   # ------------------------------
