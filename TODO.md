@@ -15,6 +15,11 @@
   - [x] abbrを設定
   - [ ] color themeを適応する (ohmyfishとか？)
 
-- [ ] Claudeのdenyルール、skills等を整備
+- [ ] AI環境周りを整備
+  - [x] Claudeのdenyルール
+  - [ ] skills等を整備
+  - [x] 完了時のhooks
+  - [ ] Claude/Codexの設定をSSOTにする
+    - https://i9wa4.github.io/blog/2026-03-15-agent-config-ssot-nix.html
 
 - [ ] weztermに入門したい。tmux使わずにtmuxぽいことできるみたいなので。せっかくRust製のターミナル使っていてもtmuxがボトルネックになって描画が早くなっていないようなところもありそうな。
