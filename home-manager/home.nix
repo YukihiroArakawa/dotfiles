@@ -59,6 +59,7 @@
   home.file = {
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
+    ".claude/CLAUDE.md".source = ./../claude/CLAUDE.md;
   };
 
   # ------------------------------
