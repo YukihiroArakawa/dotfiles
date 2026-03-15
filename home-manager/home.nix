@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # ------------------------------
@@ -59,6 +59,18 @@
   home.file = {
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
+  };
+
+  # ------------------------------
+  # Activation scripts
+  # ------------------------------
+  # home-manager switch 時に実行されるスクリプト
+  home.activation = {
+    # Claude Code の settings.json を書き込み可能なコピーとして配置
+    # （/config コマンドが書き戻すためシンボリックリンクは不可）
+    claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      install -Dm644 ${./../claude/settings.json} ${config.home.homeDirectory}/.claude/settings.json
+    '';
   };
 
   # ------------------------------
