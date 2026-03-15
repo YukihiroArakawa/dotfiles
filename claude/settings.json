@@ -38,7 +38,12 @@
       "Bash(git clean -f*)",
       "Bash(git checkout -- .)",
       "Bash(curl *)",
-      "Bash(wget *)"
+      "Bash(wget *)",
+      "Bash(rm *)",
+      "Bash(rm -*)",
+      "Bash(rmdir *)",
+      "Bash(shred *)",
+      "Bash(unlink *)"
     ]
   }
 }
