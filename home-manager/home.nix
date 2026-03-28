@@ -36,6 +36,8 @@
     pkgs.pdfarranger
     # GitHub CLI（PR作成・Issue管理などGitHub操作をターミナルから実行）
     pkgs.gh
+    # ターミナルベースのMarkdownプレゼンテーションツール
+    pkgs.presenterm
   ];
 
   # ------------------------------
