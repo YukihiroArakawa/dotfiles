@@ -10,31 +10,13 @@ USABLE_Y_OFFSET=32 # WA の Y 座標 (パネルなどの分)
 sleep 10
 
 # Workspace 1
-## Google Tasksを起動 (左半分に配置予定)
 wmctrl -s 0
-GOOGLE_TASKS_COMMAND="/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=okhfeehhillipaleckndoboggdkcebmo"
-GOOGLE_TASKS_WM_CLASS="crx_okhfeehhillipaleckndoboggdkcebmo"
-$GOOGLE_TASKS_COMMAND &
-sleep 5
-wmctrl -r "$GOOGLE_TASKS_WM_CLASS" -e 0,0,"$USABLE_Y_OFFSET",$((SCREEN_WIDTH / 2)),"$USABLE_HEIGHT"
-
-## TimeTreeを起動 (右半分に配置予定)
-TIMETREE_COMMAND="/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=kjfnnfnaaifoiapilkhijdngdcfamdlm"
-TIMETREE_WM_CLASS="crx_kjfnnfnaaifoiapilkhijdngdcfamdlm"
-$TIMETREE_COMMAND &
-sleep 5
-wmctrl -r "$TIMETREE_WM_CLASS" -e 0,$((SCREEN_WIDTH / 2)),"$USABLE_Y_OFFSET",$((SCREEN_WIDTH / 2)),"$USABLE_HEIGHT"
-sleep 5
-
-# Workspace 2
-wmctrl -s 1
 ZEN_COMMAND="flatpak run app.zen_browser.zen"
 $ZEN_COMMAND &
 sleep 3
 
-# Workspace 3
-## Alacrittyを起動
-wmctrl -s 2
+# Workspace 2
+wmctrl -s 1
 ALACRITTY_COMMAND="alacritty"
 ALACRITTY_WM_CLASS="Alacritty"
 $ALACRITTY_COMMAND &
