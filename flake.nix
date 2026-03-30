@@ -22,13 +22,16 @@
     codex-nix.url = "github:sadjow/codex-nix";
     # Claude Code CLI パッケージを提供する flake
     claude-code-nix.url = "github:sadjow/claude-code-nix";
+    # LLM エージェント群を提供する flake（毎日自動更新）
+    # ここでは gemini-cli のみ使用
+    llm-agents-nix.url = "github:numtide/llm-agents.nix";
   };
 
   # ------------------------------
   # Flake outputs
   # ------------------------------
   # inputs を受け取り、実際に使う成果物（ここでは homeConfigurations）を定義
-  outputs = { nixpkgs, home-manager, codex-nix, claude-code-nix, ... }:
+  outputs = { nixpkgs, home-manager, codex-nix, claude-code-nix, llm-agents-nix, ... }:
     let
       # 対象アーキテクチャ
       system = "x86_64-linux";
@@ -51,6 +54,7 @@
             home.packages = [
               codex-nix.packages.${system}.default
               claude-code-nix.packages.${system}.default
+              llm-agents-nix.packages.${system}.gemini-cli
             ];
           })
         ];

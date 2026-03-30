@@ -38,8 +38,7 @@
     pkgs.gh
     # ターミナルベースのMarkdownプレゼンテーションツール
     pkgs.presenterm
-    # Google Gemini AI のCLIクライアント
-    pkgs.gemini-cli
+
   ];
 
   # ------------------------------
@@ -63,8 +62,7 @@
   # home.file."<path from HOME>".source = <path>;
   # => ~/<path from HOME> に source の内容をリンク配置
   home.file = {
-    # Gemini CLI のグローバル設定（AGENTS.md をコンテキストとして読み込む）
-    ".gemini/settings.json".source = ./../gemini/settings.json;
+    # Gemini CLI の AGENTS.md（読み取り専用で問題ないためシンボリックリンク）
     ".gemini/AGENTS.md".source = ./../agents/AGENTS.md;
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
@@ -87,6 +85,11 @@
     # （/config コマンドが書き戻すためシンボリックリンクは不可）
     claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       install -Dm644 ${./../claude/settings.json} ${config.home.homeDirectory}/.claude/settings.json
+    '';
+    # Gemini CLI の settings.json を書き込み可能なコピーとして配置
+    # （Gemini CLI が認証情報等を書き戻すためシンボリックリンクは不可）
+    geminiSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      install -Dm644 ${./../gemini/settings.json} ${config.home.homeDirectory}/.gemini/settings.json
     '';
   };
 
