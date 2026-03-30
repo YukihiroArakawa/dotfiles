@@ -38,6 +38,8 @@
     pkgs.gh
     # ターミナルベースのMarkdownプレゼンテーションツール
     pkgs.presenterm
+    # Google Gemini AI のCLIクライアント
+    pkgs.gemini-cli
   ];
 
   # ------------------------------
