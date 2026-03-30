@@ -63,6 +63,9 @@
   # home.file."<path from HOME>".source = <path>;
   # => ~/<path from HOME> に source の内容をリンク配置
   home.file = {
+    # Gemini CLI のグローバル設定（AGENTS.md をコンテキストとして読み込む）
+    ".gemini/settings.json".source = ./../gemini/settings.json;
+    ".gemini/AGENTS.md".source = ./../agents/AGENTS.md;
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
     ".claude/CLAUDE.md".source = ./../claude/CLAUDE.md;
