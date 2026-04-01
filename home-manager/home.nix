@@ -70,6 +70,11 @@
     # AI エージェント共有スキル（Claude Code / Gemini CLI 両方から参照）
     ".claude/skills".source = ./../agents/skills;
     ".gemini/skills".source = ./../agents/skills;
+    # LeetCode 問題取得スクリプト（leetcode スキルから利用）
+    ".local/bin/leetcode-fetch" = {
+      source = ./../scripts/leetcode-fetch.sh;
+      executable = true;
+    };
     # Claude Code フック: イベントに応じた通知音を再生するスクリプト
     ".claude/hooks/notify.sh" = {
       source = ./../claude/hooks/notify.sh;

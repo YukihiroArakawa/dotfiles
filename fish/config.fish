@@ -18,6 +18,7 @@ if test -f "$HOME/.cargo/env.fish"
 end
 
 # path
+fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/.tiup/bin"
 
 # copyq
