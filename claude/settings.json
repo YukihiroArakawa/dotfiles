@@ -26,6 +26,9 @@
     ]
   },
   "permissions": {
+    "allow": [
+      "Bash(~/.local/bin/leetcode-fetch *)"
+    ],
     "deny": [
       "Read(.env)",
       "Read(.env.*)",
