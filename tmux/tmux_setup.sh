@@ -33,17 +33,11 @@ if [ "$HAS_SESSION_EXIT_CODE" -ne 0 ]; then
   tmux send-keys -t "${SESSION_NAME}:1" "cd ~/Workspace/" C-m
   tmux split-window -h -p 50 -t "${SESSION_NAME}:1.1"
 
-  tmux new-window -t $SESSION_NAME -n "Btop"
-  tmux send-keys -t "${SESSION_NAME}:2" "btop" C-m
-
-  tmux new-window -t $SESSION_NAME -n "Docker"
-  tmux send-keys -t "${SESSION_NAME}:3" "lazydocker" C-m
-
   tmux new-window -t $SESSION_NAME -n "Dotfiles"
-  tmux send-keys -t "${SESSION_NAME}:4" "cd ~/Workspace/dotfiles/ && nvim ." C-m
+  tmux send-keys -t "${SESSION_NAME}:2" "cd ~/Workspace/dotfiles/ && nvim ." C-m
 
   tmux new-window -t $SESSION_NAME -n "InterviewPrep"
-  tmux send-keys -t "${SESSION_NAME}:5" "cd ~/Workspace/career_info/ && nvim ." C-m
+  tmux send-keys -t "${SESSION_NAME}:3" "cd ~/Workspace/career_info/ && nvim ." C-m
 
   # 最初に表示するウィンドウを選択
   tmux select-window -t "${SESSION_NAME}:0"
