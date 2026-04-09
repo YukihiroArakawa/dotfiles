@@ -9,6 +9,10 @@
 
 - [ ] caps lock を ctrlに変えるのもnixから実施
 
+- [ ] `/etc/default/keyboard` を system-manager (numtide/system-manager) で Nix 管理する
+  - flake input に追加し `environment.etc."default/keyboard"` で XKB 設定を宣言
+  - `nix run github:numtide/system-manager -- switch --flake .` で適用、`console-setup` の conffile 競合に注意
+
 - [ ] fish shellの環境整備
   - [x] fish shellをインストール
   - [x] tmux環境のデフォルトシェルをfishにする
