@@ -38,6 +38,8 @@
     pkgs.gh
     # ターミナルベースのMarkdownプレゼンテーションツール
     pkgs.presenterm
+    # Java ビルドツール（Gradle プロジェクトのビルド用）
+    pkgs.gradle
 
   ];
 
