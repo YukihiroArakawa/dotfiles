@@ -7,6 +7,10 @@ abbr -a gs "git status"
 abbr -a gpoh "git push origin HEAD"
 abbr -a gpfoh "git push -f origin HEAD"
 
+# tmux
+# 縦分割ペインの幅を均等にする
+abbr -a tmux-even "tmux select-layout even-horizontal"
+
 # editor
 set -gx EDITOR nvim
 set -gx SUDO_EDITOR $EDITOR
