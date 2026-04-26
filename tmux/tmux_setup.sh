@@ -39,6 +39,9 @@ if [ "$HAS_SESSION_EXIT_CODE" -ne 0 ]; then
   tmux new-window -t $SESSION_NAME -n "InterviewPrep"
   tmux send-keys -t "${SESSION_NAME}:3" "cd ~/Workspace/career_info/ && nvim ." C-m
 
+  tmux new-window -t $SESSION_NAME -n "Blind75"
+  tmux send-keys -t "${SESSION_NAME}:4" "cd ~/Workspace/blind75/ && nvim ." C-m
+
   # 最初に表示するウィンドウを選択
   tmux select-window -t "${SESSION_NAME}:0"
 fi
