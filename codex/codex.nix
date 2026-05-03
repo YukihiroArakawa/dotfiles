@@ -15,5 +15,8 @@ let
   }) skillNames);
 in
 {
-  home.file = codexSkillFiles;
+  home.file = codexSkillFiles // {
+    # codex のグローバル AGENTS.md（読み取り専用で問題ないためシンボリックリンク）
+    ".codex/AGENTS.md".source = ./../agents/AGENTS.md;
+  };
 }
