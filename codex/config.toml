@@ -1,0 +1,43 @@
+personality = "pragmatic"
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+
+[features]
+codex_hooks = true
+
+[projects."/home/york/Pictures/Screenshots"]
+trust_level = "trusted"
+
+[projects."/home/york/Workspace/codecrafters-kafka-java"]
+trust_level = "trusted"
+
+[projects."/home/york/Workspace/axon-quickstart"]
+trust_level = "trusted"
+
+[projects."/home/york/Workspace/memo"]
+trust_level = "trusted"
+
+[projects."/home/york"]
+trust_level = "trusted"
+
+[projects."/home/york/Workspace/dotfiles"]
+trust_level = "trusted"
+
+[projects."/home/york/Workspace/career_info"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.2-codex" = "gpt-5.3-codex"
+"gpt-5.1-codex-mini" = "gpt-5.3-codex"
+"gpt-5.3-codex" = "gpt-5.4"
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 3
+
+[tui.keymap.editor]

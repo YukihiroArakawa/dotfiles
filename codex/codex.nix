@@ -31,5 +31,11 @@ in
   home.file = codexSkillFiles // codexRuleFiles // {
     # codex のグローバル AGENTS.md（読み取り専用で問題ないためシンボリックリンク）
     ".codex/AGENTS.md".source = ./../agents/AGENTS.md;
+    ".codex/hooks.json".source = ./hooks.json;
+    # Codex hooks から利用する通知スクリプト
+    ".codex/hooks/notify.sh" = {
+      source = ./../scripts/notify.sh;
+      executable = true;
+    };
   };
 }

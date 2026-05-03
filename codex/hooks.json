@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.codex/hooks/notify.sh",
+            "timeout": 5,
+            "statusMessage": "Playing completion notification"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "Bash|apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.codex/hooks/notify.sh /usr/share/sounds/freedesktop/stereo/bell.oga",
+            "timeout": 5,
+            "statusMessage": "Playing approval notification"
+          }
+        ]
+      }
+    ]
+  }
+}
