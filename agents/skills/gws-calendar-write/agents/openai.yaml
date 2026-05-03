@@ -1,0 +1,4 @@
+interface:
+  display_name: "GWS Calendar Write"
+  short_description: "gwsでGoogleカレンダー予定を作成・編集する"
+  default_prompt: "Use $gws-calendar-write to create or edit a Google Calendar event with gws without deleting events."
