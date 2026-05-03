@@ -1,0 +1,225 @@
+# サンドボックス外での誤爆を減らすための実行ポリシー
+# 構文リファレンス: https://developers.openai.com/codex/rules
+#
+# 方針:
+# - irreversible / 権限昇格 / 履歴破壊は forbidden
+# - 大きい副作用がある操作は prompt にして、必ずユーザー承認を通す
+# - ルールは「サンドボックス外」の実行にのみ効く。workspace 内の通常編集は別管理
+#
+# 注意:
+# - pattern は argv の prefix マッチ
+# - 同位置のネストリストは OR 表現
+# - 複数マッチ時は forbidden > prompt > allow の順で厳しい方が勝つ
+
+# 権限昇格は全面禁止
+prefix_rule(
+    pattern = [["sudo", "doas", "pkexec"]],
+    decision = "forbidden",
+    justification = "権限昇格は禁止。必要ならユーザーが手動で実行する",
+    match = [
+        "sudo nix flake check",
+        "doas systemctl restart sshd",
+        "pkexec sh",
+    ],
+)
+prefix_rule(
+    pattern = ["su"],
+    decision = "forbidden",
+    justification = "別ユーザーへの切り替えは禁止。必要ならユーザーが手動で実行する",
+    match = [
+        "su -",
+        "su root -c whoami",
+    ],
+)
+
+# git 履歴破壊や未追跡削除は全面禁止
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f"]],
+    decision = "forbidden",
+    justification = "強制 push は禁止。必要ならユーザーが手動で --force-with-lease を判断する",
+    match = [
+        "git push --force origin main",
+        "git push -f origin feature",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "git reset --hard は未コミット変更を破壊するため禁止",
+    match = [
+        "git reset --hard",
+        "git reset --hard HEAD~1",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "clean", "-f"],
+    decision = "forbidden",
+    justification = "git clean -f 系は未追跡ファイルを削除するため禁止",
+    match = [
+        "git clean -f",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "clean", "-fd"],
+    decision = "forbidden",
+    justification = "git clean -fd は未追跡ファイルとディレクトリを削除するため禁止",
+    match = [
+        "git clean -fd",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "clean", "-fxd"],
+    decision = "forbidden",
+    justification = "git clean -fxd は ignored を含む未追跡ファイルを削除するため禁止",
+    match = [
+        "git clean -fxd",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "checkout", "--"],
+    decision = "forbidden",
+    justification = "git checkout -- は作業ツリーの変更を破棄するため禁止",
+    match = [
+        "git checkout -- .",
+        "git checkout -- README.md",
+    ],
+)
+prefix_rule(
+    pattern = ["git", "restore"],
+    decision = "forbidden",
+    justification = "git restore は変更破棄につながるため、必要ならユーザーが手動で実行する",
+    match = [
+        "git restore .",
+        "git restore --staged flake.nix",
+        "git restore --source HEAD --worktree .",
+    ],
+)
+
+# 削除系は AI が勝手に走らせない。必要でも必ず承認
+prefix_rule(
+    pattern = ["rm"],
+    decision = "prompt",
+    justification = "削除は副作用が大きいため、内容を確認してから承認する",
+    match = [
+        "rm file.txt",
+        "rm -rf /tmp/work",
+    ],
+)
+prefix_rule(
+    pattern = [["rmdir", "shred", "unlink"]],
+    decision = "prompt",
+    justification = "削除系コマンドは副作用が大きいため承認必須",
+    match = [
+        "rmdir old-dir",
+        "shred secret.txt",
+        "unlink tmp.sock",
+    ],
+)
+
+# 外部取得や外部実行の入口は承認必須
+prefix_rule(
+    pattern = [["curl", "wget", "aria2c"]],
+    decision = "prompt",
+    justification = "ネットワーク取得は取得先と用途を確認してから承認する",
+    match = [
+        "curl -L https://example.com/tool.tgz",
+        "wget https://example.com/install.sh",
+        "aria2c https://example.com/archive.zip",
+    ],
+)
+
+# システム変更・配備・反映は承認必須
+prefix_rule(
+    pattern = ["home-manager", "switch"],
+    decision = "prompt",
+    justification = "環境反映は副作用が大きいため承認必須",
+    match = [
+        "home-manager switch --flake .#york",
+    ],
+)
+prefix_rule(
+    pattern = [["nixos-rebuild", "darwin-rebuild"]],
+    decision = "prompt",
+    justification = "OS レベルの再構成は副作用が大きいため承認必須",
+    match = [
+        "nixos-rebuild switch --flake .#host",
+        "darwin-rebuild switch --flake .#mac",
+    ],
+)
+prefix_rule(
+    pattern = ["nix", "flake", "update"],
+    decision = "prompt",
+    justification = "依存更新は lockfile とビルド結果に影響するため承認必須",
+    match = [
+        "nix flake update",
+    ],
+)
+
+# パッケージ操作は承認必須
+prefix_rule(
+    pattern = [["apt", "apt-get", "dnf", "yum", "pacman", "brew", "pip", "pip3", "npm", "pnpm", "yarn", "cargo", "go"], ["install", "remove", "uninstall", "upgrade", "update"]],
+    decision = "prompt",
+    justification = "依存やシステム状態を変える操作は承認必須",
+    match = [
+        "apt install jq",
+        "brew upgrade git",
+        "npm install",
+        "cargo install ripgrep",
+    ],
+)
+
+# サービス・プロセス・電源操作は承認必須
+prefix_rule(
+    pattern = [["systemctl", "service", "launchctl"]],
+    decision = "prompt",
+    justification = "サービス操作は他プロセスや接続中の作業へ影響するため承認必須",
+    match = [
+        "systemctl restart sshd",
+        "service nginx restart",
+        "launchctl unload ~/Library/LaunchAgents/example.plist",
+    ],
+)
+prefix_rule(
+    pattern = [["reboot", "shutdown", "poweroff", "halt"]],
+    decision = "prompt",
+    justification = "電源操作はセッションを失うため承認必須",
+    match = [
+        "reboot",
+        "shutdown -h now",
+    ],
+)
+prefix_rule(
+    pattern = [["kill", "pkill", "killall"]],
+    decision = "prompt",
+    justification = "プロセス停止は副作用が大きいため承認必須",
+    match = [
+        "kill 1234",
+        "pkill ssh",
+        "killall node",
+    ],
+)
+
+# 移動・上書き・権限変更は承認必須
+prefix_rule(
+    pattern = [["mv", "cp", "install", "dd", "ln", "chmod", "chown", "chgrp"]],
+    decision = "prompt",
+    justification = "mv を含むファイル変更は実質的な削除や上書きになりうるため承認必須",
+    match = [
+        "mv /tmp/a /etc/a",
+        "mv dir-a dir-b",
+        "cp config /usr/local/bin/config",
+        "chmod -R 777 /srv/app",
+        "chown -R root:root /opt/tool",
+    ],
+)
+
+# リモート反映は承認必須
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "prompt",
+    justification = "リモート更新は外部副作用があるため承認必須",
+    match = [
+        "git push",
+        "git push origin HEAD",
+    ],
+)
