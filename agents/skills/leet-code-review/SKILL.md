@@ -1,6 +1,6 @@
 ---
-name: leet-code-review
-description: LeetCode の FirstSolution をコーディング面接の観点でレビューし、点数と改善ポイントを Markdown に出力する
+name: "leet-code-review"
+description: "LeetCode の FirstSolution をコーディング面接の観点でレビューし、点数と改善ポイントを Markdown に出力する"
 ---
 
 # LeetCode 解答レビュー スキル

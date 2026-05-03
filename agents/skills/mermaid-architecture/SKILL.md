@@ -1,6 +1,6 @@
 ---
-name: mermaid-architecture
-description: Markdown に書かれたハイレベルデザイン（テキスト記法）からサービス間の関係を示す Mermaid 形式のアーキテクチャ図を生成し、同じ MD ファイルに追記・更新する
+name: "mermaid-architecture"
+description: "Markdown に書かれたハイレベルデザイン（テキスト記法）からサービス間の関係を示す Mermaid 形式のアーキテクチャ図を生成し、同じ MD ファイルに追記・更新する"
 ---
 
 # Mermaid アーキテクチャ図生成スキル

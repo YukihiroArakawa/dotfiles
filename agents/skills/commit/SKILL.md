@@ -1,6 +1,6 @@
 ---
-name: commit
-description: Conventional Commit 形式で git commit を作成する
+name: "commit"
+description: "Conventional Commit 形式で git commit を作成する"
 ---
 
 # Git Commit スキル

@@ -1,6 +1,6 @@
 ---
-name: deep-dive-interview
-description: 経歴深堀り / 技術深掘り面接をシミュレートする。AI が面接官として質問し、ユーザの回答に対して追加で深掘り質問を重ねる。対象ファイルは `<num>-<topic>.md` 形式（例: `002-tech-selection.md`）
+name: "deep-dive-interview"
+description: "経歴深堀り / 技術深掘り面接をシミュレートする。AI が面接官として質問し、ユーザの回答に対して追加で深掘り質問を重ねる。対象ファイルは `<num>-<topic>.md` 形式（例: `002-tech-selection.md`）"
 ---
 
 # 経歴・技術深堀り面接 スキル

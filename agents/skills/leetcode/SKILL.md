@@ -1,6 +1,6 @@
 ---
-name: leetcode
-description: LeetCode の問題 URL から問題ファイル（日本語）を作成する
+name: "leetcode"
+description: "LeetCode の問題 URL から問題ファイル（日本語）を作成する"
 ---
 
 # LeetCode 問題取得スキル

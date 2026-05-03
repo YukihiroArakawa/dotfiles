@@ -1,6 +1,6 @@
 ---
-name: presenterm
-description: presenterm 形式のプレゼンテーション Markdown ファイルを作成する
+name: "presenterm"
+description: "presenterm 形式のプレゼンテーション Markdown ファイルを作成する"
 ---
 
 # presenterm プレゼン作成スキル
