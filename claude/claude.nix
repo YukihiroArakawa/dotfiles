@@ -6,8 +6,9 @@
     # AI エージェント共有スキル（Claude Code から参照）
     ".claude/skills".source = ./../agents/skills;
     # Claude Code フック: イベントに応じた通知音を再生するスクリプト
+    # （codex / gemini からも同じスクリプトを使う想定で scripts/ 配下に配置）
     ".claude/hooks/notify.sh" = {
-      source = ./hooks/notify.sh;
+      source = ./../scripts/notify.sh;
       executable = true;
     };
   };
