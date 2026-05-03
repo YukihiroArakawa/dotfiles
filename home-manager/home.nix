@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
+  # codex 固有の設定は別モジュールに分離
+  imports = [ ./../codex/codex.nix ];
+
   # ------------------------------
   # User metadata
   # ------------------------------
