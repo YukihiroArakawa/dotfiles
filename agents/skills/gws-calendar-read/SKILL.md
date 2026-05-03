@@ -5,12 +5,12 @@ description: Google Calendar の予定を `gws` で調べる。ユーザーが�
 
 # GWS Calendar Read
 
-`gws` を使って Google Calendar の予定を安全に確認する。対象は `primary` と `Family` を中心にした予定の一覧、検索、詳細確認で、作成・更新・削除は行わない。
+`gws` を使って Google Calendar の予定を安全に確認する。対象は `primary` と `Family` を中心にした予定の一覧、検索、詳細確認で、作成・更新・削除は行わない。カレンダー名が未指定なら `primary` と `Family` の両方を調べる。
 
 ## 入力
 
 - 必須: 調べたい内容
-- 任意: 対象カレンダー名または ID。未指定なら `primary`
+- 任意: 対象カレンダー名または ID。未指定なら `primary` と `Family`
 - 任意: 期間
 - 任意: タイトルや説明の検索語
 - 任意: 詳細確認したいイベント ID
@@ -23,10 +23,10 @@ description: Google Calendar の予定を `gws` で調べる。ユーザーが�
 
 - 一覧確認か、検索か、詳細取得かを確定する
 - 期間を RFC3339 の `timeMin` / `timeMax` に落とす
-- カレンダー指定がなければ `primary` を既定にする
+- カレンダー指定がなければ `primary` と `Family` の両方を対象にする
 - 検索語やイベント ID があれば保持する
 
-依頼が曖昧なら、勝手に広い期間を読まない。例えば「予定を見て」だけなら、対象日やカレンダーを確認する。
+依頼が曖昧なら、勝手に広い期間を読まない。例えば「予定を見て」だけなら、対象日を確認する。カレンダー未指定なら既定で `primary` と `Family` の両方を読む。
 
 ### 2. 対象カレンダーを特定する
 
@@ -36,11 +36,11 @@ description: Google Calendar の予定を `gws` で調べる。ユーザーが�
 gws calendar calendarList list --params '{"minAccessRole":"reader"}'
 ```
 
-表示名だけ指定された場合は、一覧から ID に解決してから続行する。`Family` は固定のメールアドレスだと決め打ちせず、毎回一覧から確認する。
+表示名だけ指定された場合は、一覧から ID に解決してから続行する。`Family` は固定のメールアドレスだと決め打ちせず、毎回一覧から確認する。カレンダー未指定なら `primary` と `Family` の両方の ID を確定してから読む。
 
 ### 3. 予定を一覧または検索する
 
-期間がある場合は `events list` を使う。展開後の予定を時系列で見たいので `singleEvents: true` と `orderBy: "startTime"` を付ける。
+期間がある場合は `events list` を使う。展開後の予定を時系列で見たいので `singleEvents: true` と `orderBy: "startTime"` を付ける。カレンダー未指定なら `primary` と `Family` の両方で同じ条件を実行し、まとめて返す。
 
 ```bash
 gws calendar events list --params '{"calendarId":"primary","timeMin":"2026-05-01T00:00:00+09:00","timeMax":"2026-05-01T23:59:59+09:00","singleEvents":true,"orderBy":"startTime"}'
@@ -73,13 +73,13 @@ gws calendar events get --params '{"calendarId":"primary","eventId":"<event-id>"
 - ステータス
 - イベント ID または `htmlLink`
 
-一覧が 0 件なら、その期間とカレンダーで該当なしと明記する。件数が多いときは先頭数件を要約し、必要なら追加条件を聞く。
+一覧が 0 件なら、その期間とカレンダーで該当なしと明記する。複数カレンダーを読んだ場合は、どの予定が `primary` / `Family` のどちらか分かるように返す。件数が多いときは先頭数件を要約し、必要なら追加条件を聞く。
 
 ## ルール
 
 - 書き込み系コマンドは使わない。`insert`、`patch`、`update`、`delete` は対象外
 - 相対日付のまま実行しない。回答では絶対日時を明記する
-- カレンダー指定がない場合だけ `primary` を既定にする
+- カレンダー指定がない場合は `primary` と `Family` の両方を既定にする
 - `Family` は表示名から都度 ID に解決する
 - 曖昧な依頼で広い期間を読まない。必要なら期間を確認する
 - 詳細確認が不要なら `get` を乱用せず、まず `list` で絞る
