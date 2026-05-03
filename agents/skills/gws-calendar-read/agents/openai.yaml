@@ -1,0 +1,4 @@
+interface:
+  display_name: "GWS Calendar Read"
+  short_description: "gwsでprimaryとFamilyの予定を調べる"
+  default_prompt: "Use $gws-calendar-read to inspect Google Calendar events in primary or Family with gws without modifying them."
