@@ -49,6 +49,8 @@
     pkgs.presenterm
     # Java ビルドツール（Gradle プロジェクトのビルド用）
     pkgs.gradle
+    # skill-creator の validator が import yaml を使うため、PyYAML 入りの Python を入れる
+    (pkgs.python3.withPackages (ps: [ ps.pyyaml ]))
 
   ];
 
