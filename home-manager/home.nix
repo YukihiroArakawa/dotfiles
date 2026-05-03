@@ -1,8 +1,11 @@
 { config, pkgs, lib, ... }:
 
 {
-  # codex 固有の設定は別モジュールに分離
-  imports = [ ./../codex/codex.nix ];
+  # ツール固有の設定は別モジュールに分離
+  imports = [
+    ./../codex/codex.nix
+    ./../gemini/gemini.nix
+  ];
 
   # ------------------------------
   # User metadata
@@ -67,14 +70,11 @@
   # home.file."<path from HOME>".source = <path>;
   # => ~/<path from HOME> に source の内容をリンク配置
   home.file = {
-    # Gemini CLI の AGENTS.md（読み取り専用で問題ないためシンボリックリンク）
-    ".gemini/AGENTS.md".source = ./../agents/AGENTS.md;
     ".bashrc".source = ./../bashrc/bashrc;
     ".local/share/omakub/defaults/alacritty.toml".source = ./../alacritty/alacritty.toml;
     ".claude/CLAUDE.md".source = ./../claude/CLAUDE.md;
-    # AI エージェント共有スキル（Claude Code / Gemini CLI 両方から参照）
+    # AI エージェント共有スキル（Claude Code から参照）
     ".claude/skills".source = ./../agents/skills;
-    ".gemini/skills".source = ./../agents/skills;
     # LeetCode 問題取得スクリプト（leetcode スキルから利用）
     ".local/bin/leetcode-fetch" = {
       source = ./../scripts/leetcode-fetch.sh;
@@ -96,11 +96,6 @@
     # （/config コマンドが書き戻すためシンボリックリンクは不可）
     claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       install -Dm644 ${./../claude/settings.json} ${config.home.homeDirectory}/.claude/settings.json
-    '';
-    # Gemini CLI の settings.json を書き込み可能なコピーとして配置
-    # （Gemini CLI が認証情報等を書き戻すためシンボリックリンクは不可）
-    geminiSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      install -Dm644 ${./../gemini/settings.json} ${config.home.homeDirectory}/.gemini/settings.json
     '';
   };
 
