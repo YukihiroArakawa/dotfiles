@@ -25,13 +25,18 @@
     # LLM エージェント群を提供する flake（毎日自動更新）
     # ここでは gemini-cli のみ使用
     llm-agents-nix.url = "github:numtide/llm-agents.nix";
+
+    # Google Workspace CLI (`gws`) を提供する flake
+    googleworkspace-cli.url = "github:googleworkspace/cli";
+    # 上流 flake が参照する nixpkgs をこの flake に揃える
+    googleworkspace-cli.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # ------------------------------
   # Flake outputs
   # ------------------------------
   # inputs を受け取り、実際に使う成果物（ここでは homeConfigurations）を定義
-  outputs = { nixpkgs, home-manager, codex-nix, claude-code-nix, llm-agents-nix, ... }:
+  outputs = { nixpkgs, home-manager, codex-nix, claude-code-nix, llm-agents-nix, googleworkspace-cli, ... }:
     let
       # 対象アーキテクチャ
       system = "x86_64-linux";
@@ -55,6 +60,7 @@
               codex-nix.packages.${system}.default
               claude-code-nix.packages.${system}.default
               llm-agents-nix.packages.${system}.gemini-cli
+              googleworkspace-cli.packages.${system}.default
             ];
           })
         ];

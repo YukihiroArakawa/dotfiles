@@ -43,6 +43,8 @@
     pkgs.pdfarranger
     # GitHub CLI（PR作成・Issue管理などGitHub操作をターミナルから実行）
     pkgs.gh
+    # Google Cloud CLI（gcloud / gsutil / bq）
+    pkgs.google-cloud-sdk
     # ターミナルベースのMarkdownプレゼンテーションツール
     pkgs.presenterm
     # Java ビルドツール（Gradle プロジェクトのビルド用）
