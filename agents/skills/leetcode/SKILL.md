@@ -158,30 +158,56 @@ class Solution {
 
 ## 4. 全体の流れ
 
+- 入力から出力までの処理を箇条書きで段階的に説明する
+- フローチャートやシーケンス図は使わない（見通しが悪くなるため）
+- 代わりに、このアプローチで利用するデータ構造を Mermaid で図式化して示す
+- 図は「どんな構造を作るのか」「どの要素が何を意味するのか」が一目で分かるようにする
+
+データ構造の図式化例（採用するアプローチに合わせて適切な形を選ぶ）:
+
 ```mermaid
-flowchart TD
-    A[入力を受け取る] --> B[主要な判定や前処理]
-    B --> C[メインループ / 探索 / 更新]
-    C --> D[答えを返す]
+classDiagram
+    class HashMap~Integer, Integer~ {
+        key: 数値そのもの
+        value: 配列上のインデックス
+    }
+```
+
+```mermaid
+graph LR
+    subgraph "連結リスト (ListNode)"
+        N1["val=1"] --> N2["val=2"] --> N3["val=3"] --> Null((null))
+    end
+```
+
+```mermaid
+graph TD
+    subgraph "二分木 (TreeNode)"
+        Root["3"] --> L["9"]
+        Root --> R["20"]
+        R --> RL["15"]
+        R --> RR["7"]
+    end
 ```
 
 ## 5. 具体例トレース
 
 - 問題文の例、または分かりやすい小さな例を使って逐次実行する
 - 各ステップで変数やデータ構造がどう変わるかを表で示す
+- フローチャートやシーケンス図は使わず、表と「データ構造のスナップショット」で説明する
 
 | step | current state | action | result |
 | --- | --- | --- | --- |
 | 1 | ... | ... | ... |
 
-必要に応じて Mermaid の図も追加する:
+必要に応じて、各ステップ時点でのデータ構造の中身を Mermaid で図式化して併記する（例: ハッシュマップに何が入っているか、スタックの積み上がり、連結リストのポインタ位置など）:
 
 ```mermaid
-sequenceDiagram
-    participant Loop as ループ
-    participant State as 状態
-    Loop->>State: 1ステップ進める
-    State-->>Loop: 状態更新後の値
+graph LR
+    subgraph "step 2 時点の HashMap"
+        K1["key=2"] --> V1["value=0"]
+        K2["key=7"] --> V2["value=1"]
+    end
 ```
 
 ## 6. コードの読み解き
@@ -208,6 +234,7 @@ sequenceDiagram
 - 数式や数値条件もそのまま保持する
 - HTML タグは Markdown に変換する（`<code>` → バッククォート、`<sup>` → `^` 等）
 - Solution.java のメソッドシグネチャは問題文中のコード例から正確に読み取る
-- `AISolution/explanation.md` には Mermaid の図と具体例トレースを十分に含める
+- `AISolution/explanation.md` には「利用するデータ構造を図式化した Mermaid 図」と具体例トレースを十分に含める
+- フローチャート（`flowchart`）やシーケンス図（`sequenceDiagram`）は使わない。処理の流れは箇条書きと表で表現し、Mermaid はデータ構造（HashMap・連結リスト・木・スタック・キュー・配列など）の可視化にのみ用いる
 - `AISolution/explanation.md` は LeetCode 初心者を読者として、用語の飛躍を避けて丁寧に説明する
 - skill完了時、これからユーザは問題を解くので模範解答についてユーザに伝えないこと。
