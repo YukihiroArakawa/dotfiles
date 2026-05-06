@@ -11,6 +11,9 @@ abbr -a gpfoh "git push -f origin HEAD"
 # 縦分割ペインの幅を均等にする
 abbr -a tmux-even "tmux select-layout even-horizontal"
 
+# ccusage
+abbr -a ccusage-codex "npx @ccusage/codex@latest"
+
 # editor
 set -gx EDITOR nvim
 set -gx SUDO_EDITOR $EDITOR
