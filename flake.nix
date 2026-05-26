@@ -60,6 +60,7 @@
               codex-nix.packages.${system}.default
               claude-code-nix.packages.${system}.default
               llm-agents-nix.packages.${system}.gemini-cli
+              llm-agents-nix.packages.${system}.ccusage
               googleworkspace-cli.packages.${system}.default
             ];
           })
